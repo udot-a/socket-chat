@@ -1,0 +1,83 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    min-width: 100vw;
+    min-height: 100vh;
+}
+.chat-users {
+    display: flex;
+    min-width: 20vw;
+    min-height: 90vh;
+    flex-direction: column;
+    background-color: lavender;
+    margin: 15px;
+    border: 1px solid grey;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.chat-messages {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 70vw;
+    min-height: 90vh;
+    border: 1px solid grey;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border-radius: 10px;
+    padding: 10px;
+}
+.messages {
+    display: flex;
+    flex-direction: column;
+    min-width: 50vw;
+    max-height: 70vh;
+    overflow: auto;
+}
+.message {
+}
+
+.message p {
+    background-color: tomato;
+    color: aliceblue;
+    border: 1px solid grey;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border-radius: 20px;
+    padding: 10px;
+
+}
+
+.message small {
+    color: darkgray;
+    font-weight: bold;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    min-width: 50vw;
+}
+
+form textarea {
+    margin: 10px;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+form button {
+    border-radius: 10px;
+    background-color: darkolivegreen;
+    color: white;
+    min-width: 20vw;
+    align-self: center;
+}
+
+form button[disabled] {
+    background-color: grey;
+}
+
+hr {
+    color: darkgray;
+}

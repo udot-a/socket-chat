@@ -1,26 +1,67 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect, useReducer} from 'react';
 import './App.css';
+import JoinBlock from "./components/JoinBlock";
+import socket from "./socket";
+import reducer from "./reducer";
+import Chat from "./components/Chat";
+import * as axios from "axios";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    const [state, dispatch] = useReducer(reducer, {
+        joined: false,
+        roomId: null,
+        userName: null,
+        users: [],
+        messages: []
+    });
+
+    const onLogin = async obj => {
+        dispatch({
+            type: "JOINED",
+            payload: obj
+        });
+
+        socket.emit("ROOM:JOIN", obj);
+
+        const {data: { users, messages }} = await axios
+            .get(`/rooms/${obj.roomId}`);
+
+
+        dispatch({
+            type: "SET_USERS",
+            payload: users
+        });
+
+        dispatch({
+            type: "SET_MESSAGES",
+            payload: messages
+        });
+
+    }
+
+    const userAction = users => {
+        dispatch({
+            type: "SET_USERS",
+            payload: users
+        })
+    }
+
+    useEffect(() => {
+        socket.on("ROOM:SET_USERS", userAction);
+
+        socket.on("ROOM:SET_MESSAGES", (payload) =>
+            dispatch({
+            type: "SET_MESSAGES",
+            payload
+        }));
+
+    }, []);
+
+    return (
+        <div className="wrapper">
+            {!state.joined ? <JoinBlock onLogin={onLogin}/> : <Chat {...state}/>}
+        </div>
+    );
+    }
 
 export default App;
