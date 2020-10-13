@@ -16,12 +16,12 @@
     "socket.io-client": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start:react": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "server": "nodemon server.js",
-    "start:server":"cross-env NODE_ENV=production node server.js" ,
+    "start":"cross-env NODE_ENV=production node server.js" ,
     "dev:server": "cross-env NODE_ENV=development node server.js"
   },
   "eslintConfig": {
